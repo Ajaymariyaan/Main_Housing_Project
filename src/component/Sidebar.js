@@ -15,8 +15,9 @@ import { ExpandLess, ExpandMore, Search, SearchOutlined } from "@mui/icons-mater
 import { useState } from "react";
 import Profile from "./Profile";
 
-export default function Sidebar() {
+export default function Sidebar({ selectedItem, setSelectedItem }) {
   const [openMenu, setOpenMenu] = useState(null);
+  
   const [activeItem, setActiveItem] = useState("");
 
   const handleClick = (menu) => {
@@ -92,7 +93,7 @@ export default function Sidebar() {
           <ListItemButton
             selected={activeItem === "Dashboard"}
             onClick={() => setActiveItem("Dashboard")}
-            disableRipple
+            // disableRipple
             sx={{ 
         //         borderBottom: "2px solid #d6e0ddff",
         // paddingBottom: "4px", 
@@ -152,8 +153,10 @@ export default function Sidebar() {
                       "&:hover": { backgroundColor: "#1F515B" },
                     },
                   }}
-                  selected={activeItem === item}
-                  onClick={() => setActiveItem(item)}
+                  selected={selectedItem === item} 
+                  onClick={() => setSelectedItem(item)}
+                  //  selected={activeItem === item}      // same, just using prop now
+                  // onClick={() => setActiveItem(item)} // use the setter prop from HousingHomePage
                   disableRipple
                 >
                   <ListItemText primary={item} />
@@ -163,7 +166,7 @@ export default function Sidebar() {
           </Collapse>
 
         
-          <ListItemButton
+          {/* <ListItemButton
             selected={activeItem === "Collection"}
             onClick={() => setActiveItem("Collection")}
             disableRipple
@@ -181,7 +184,7 @@ export default function Sidebar() {
             }}
           >
             <ListItemText primary="Collection" />
-          </ListItemButton>
+          </ListItemButton> */}
         </List>
       </Box>
 

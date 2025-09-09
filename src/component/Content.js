@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import React from "react";
-import Carder from "./Cart";
+// import Carder from "./Cart";
 import SitesTable from "./SitesTable";
 
 
 
-function Content(){
+function Content({selectedItem }){
 
 
 
@@ -22,7 +22,8 @@ function Content(){
              }}>
             <Box sx={{alignSelf:"start",}}> Housing/Sites</Box>
             {/* <Box><Carder/></Box> */}
-            <Box><SitesTable/></Box>
+            {/* <Box><SitesTable/></Box> */}
+            <Box><SitesTable selectedItem={selectedItem}/> </Box>
             {/* <Box>Table</Box> */}
         </Box>
         

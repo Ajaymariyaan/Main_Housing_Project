@@ -3,13 +3,13 @@ import { Box, Card, CardContent, Typography, Button, Avatar, IconButton } from "
 import { Call, Chat, Add, LocationOnOutlined } from "@mui/icons-material";
 import Profile from "./Profile";
 
-function Carder({ onAddClick }) { 
+function Carder({ onAddClick,stats,backgroundImage }) { 
   return (
     <Card
       sx={{
         width: '100%',
         height: '262px',
-        backgroundImage: 'url(/img/EleBG.jpg)',
+        backgroundImage:  `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: '#ffff',
@@ -61,25 +61,25 @@ function Carder({ onAddClick }) {
           <Box sx={{ color: "#49fe4fff", borderRadius: 1, display: "flex", flexDirection: "row", alignItems: "center", gap: "10px" }}>
             <Avatar sx={{ p: 1, bgcolor: "#FFFFFF29", borderRadius: "4px" }} variant="square" src="/img/rabbit.svg" alt="avatar" />
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Typography>24</Typography><Typography>Species</Typography>
+              <Typography>{stats.species}</Typography><Typography>Species</Typography>
             </Box>
           </Box>
           <Box sx={{ color: "#49fe4fff", borderRadius: 1, display: "flex", flexDirection: "row", alignItems: "center", gap: "10px" }}>
             <Avatar sx={{ p: 1, bgcolor: "#FFFFFF29", borderRadius: "4px" }} variant="square" src="/img/animalFoot.svg" alt="avatar" />
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Typography>44</Typography><Typography>Sites</Typography>
+              <Typography>{stats.sites}</Typography><Typography>Sites</Typography>
             </Box>
           </Box>
           <Box sx={{ color: "#49fe4fff", borderRadius: 1, display: "flex", flexDirection: "row", alignItems: "center", gap: "10px" }}>
             <Avatar sx={{ p: 1, bgcolor: "#FFFFFF29", borderRadius: "4px" }} variant="square"><LocationOnOutlined /></Avatar>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Typography>234.9k</Typography><Typography>Animals</Typography>
+              <Typography>{stats.animals}</Typography><Typography>Animals</Typography>
             </Box>
           </Box>
           <Box sx={{ color: "#49fe4fff", borderRadius: 1, display: "flex", flexDirection: "row", alignItems: "center", gap: "10px" }}>
             <Avatar sx={{ p: 1, bgcolor: "#FFFFFF29", borderRadius: "4px" }} variant="square" src="/img/House.svg" alt="avatar" />
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Typography>359</Typography><Typography>Enclosures</Typography>
+              <Typography>{stats.enclosures}</Typography><Typography>Enclosures</Typography>
             </Box>
           </Box>
         </Box>

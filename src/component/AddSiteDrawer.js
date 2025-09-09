@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Drawer, Box, IconButton, Typography, TextField, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-export default function AddSiteDrawer({ onSave, open, setOpen }) {
+ function AddSiteDrawer({ onSave, open, setOpen }) {
   const [newItem, setNewItem] = useState({
     name: "",
     species: "",
@@ -172,3 +171,7 @@ export default function AddSiteDrawer({ onSave, open, setOpen }) {
     </Drawer>
   );
 }
+
+
+
+export default AddSiteDrawer;

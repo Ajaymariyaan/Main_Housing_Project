@@ -7,6 +7,9 @@ import { useState, useEffect } from "react";
 import RightFilterDrawer from "./RightFilterDrawer";
 import Carder from "./Cart";
 import AddSiteDrawer from "./AddSiteDrawer";
+import * as XLSX from "xlsx";
+// import { useSelector , useDispatch } from "react-redux";
+// import { addSite } from "@/store/sitesSlice";
 
 const applyFilters = (rows, filters, query) => {
   const q = (query || "").trim().toLowerCase();
@@ -29,12 +32,21 @@ const applyFilters = (rows, filters, query) => {
   });
 };
 
-function SitesTable() {
+function SitesTable({selectedItem }) {
   const [species, setSpecies] = useState("All Species");
   const [serachQuery, setSearchQuery] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
   const [addDrawerOpen, setAddDrawerOpen] = useState(false);
 
+
+   const cardData = {
+    Sites: { background: "/img/EleBG.jpg", species: 24, sites: 44, animals: "234.9k", enclosures: 359 ,path:"Sites"},
+    Clusters: { background: "/img/SitesDeer.png", species: 12, sites: 22, animals: "120k", enclosures: 180, path:"Cluster"},
+    Sections: { background: "/img/Cluster.png", species: 18, sites: 33, animals: "180k", enclosures: 240,path:"Section" },
+    Enclosures: { background: "/img/FrogSpecies.png", species: 30, sites: 50, animals: "300k", enclosures: 400,path:"Enclosures" },
+  };
+
+    const currentCard = cardData[selectedItem] || cardData["Sites"];
   const initialRows = 
 [
 {
@@ -367,12 +379,10 @@ function SitesTable() {
 "inCharge": "Samantha Mitchell",
 "avatar": "/img/avatar.png"
 }
-]
-
-;
+];
 
   const [allRows, setAllRows] = useState(initialRows);
-  const [filteredRows, setFilteredRows] = useState(initialRows);
+  const [filteredRows, setFilteredRows] = useState(allRows);
 
   const [activeFilters, setActiveFilters] = useState({
     Cluster: [],
@@ -398,12 +408,12 @@ function SitesTable() {
   };
 const columns = [
   { field: "id", headerName: "NO", width: 80 },
-  { field: "name", headerName: "Site Name", flex: 1 }, // flex makes it auto-expand
+  { field: "name", headerName: "Site Name", flex: 1 }, 
   { field: "species", headerName: "Species", width: 80 },
   { field: "animals", headerName: "Animals", width: 80 },
   { field: "enclosures", headerName: "Enclosures", width: 80 },
   { field: "sections", headerName: "Sections", width: 80 },
-  { field: "cluster", headerName: "Cluster", flex: 1 }, // flex again
+  { field: "cluster", headerName: "Cluster", flex: 1 }, 
   {
     field: "inCharge",
     headerName: "In-Charge",
@@ -416,17 +426,44 @@ const columns = [
           style={{ width: 40, height: 40, borderRadius: "50%" }}
         />
         <span>{params.row.inCharge}</span>
+
+
       </Box>
     ),
   },
+   {
+    field: "action",
+    headerName: "Action",
+    width: 150,
+    renderCell: () => (
+      <Box sx={{ display: "flex",flexDirection:"row", gap: 2.5,justifyContent:"center" ,alignItems:"center",pt:"15px"}}>
+        <img src="/img/phone.svg" alt="edit" style={{ width: 24, height: 24, cursor: "pointer" }} />
+        <img src="/img/message.svg" alt="delete" style={{ width: 24, height: 24, cursor: "pointer" }} />
+      </Box>
+    ),}
 ];
 
 
+const handleDownload = ()=> {
+    if (!filteredRows.length) {
+    alert("No data to download!");
+    return;
+  }
 
+  const worksheet = XLSX.utils.json_to_sheet(filteredRows);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook,worksheet,"Sites Data");
+
+  XLSX.writeFile(workbook,"sites_data.xlsx");
+
+};
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <Box>
-        <Carder onAddClick={() => setAddDrawerOpen(true)} />
+        <Carder onAddClick={() => setAddDrawerOpen(true)}
+        backgroundImage={currentCard.background}
+        stats={currentCard}
+        />
       </Box>
       <Box
         sx={{
@@ -476,6 +513,7 @@ const columns = [
               Filter
             </Button>
             <Button
+            onClick={handleDownload}
               variant="outlined"
               startIcon={<Download />}
               sx={{ textTransform: "none", color: "#006D35", borderColor: "#006D35" }}

@@ -111,7 +111,7 @@ const handleClearAll = () => {
         <Divider sx={{ my: 1 }} />
 
         <Box sx={{ display: "flex", flex: 1 }}>
-          <List sx={{ width: 120, borderRight: "1px solid #eee" }}>
+          <List sx={{ width: 120, borderRight: "1px solid #eee" ,}}>
             {["Cluster", "Sites", "Species"].map((tab) => (
               <ListItem
                 button
@@ -146,7 +146,10 @@ const handleClearAll = () => {
 
             <List sx={{ overflowY: "auto", flex: 1 }}>
               <ListItem button onClick={handleSelectAll}>
+                
+                
                 <Checkbox
+               
                   checked={
                     selectedItems[activeTab].length ===
                       filteredOptions(activeTab).length &&
